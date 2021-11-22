@@ -1,49 +1,26 @@
 import * as PIXI from 'pixi.js';
+import { getRectGraphics } from './main/graphicsHelper';
+import initRenderer from './main/initRenderer';
 
 console.log('main.js');
-const canvasWidth = 640;
-const canvasHeight = 360;
+const canvasWidth = 300;
+const canvasHeight = 200;
 
-import initRenderer from './main/initRenderer';
-import Looper from './main/ticker';
-import FpsCounter from './main/FpsCounter';
-import BasicExperiment from './main/BasicExperiment';
-import BouncyBall from './main/BouncyBall';
-import InputStatusBox from './main/InputStatusBox';
-
-const renderer = initRenderer(document.body, canvasWidth, canvasHeight);
+const renderer = initRenderer(document.body, canvasWidth, canvasHeight, 0xeeeeee);
 const stage = new PIXI.Container();
 
-const fpsCounter = new FpsCounter();
-const framerate = 60;
+const length = 5;
+const r = 10;
+const topMargin = canvasHeight / 2 - r/2;
+const leftMargin = 10;
+const lineWidth = 1.5;
 
-const looper = new Looper();
-looper.init(framerate);
+for (let i = 0; i < length; i++) {
+    // draw a square at the index
+    const x = i * r + leftMargin;
+    const y = topMargin;
+    const sq = getRectGraphics(x, y, r, r, 0xffffff, lineWidth, 0x000000);
+    stage.addChild(sq);
+}
 
-// looper.ticker(dt => console.log('tick:', dt));
-looper.ticker(dt => fpsCounter.updateFps(dt));
-
-const formatFps = () => 
-    ''+Math.round(fpsCounter.currentFps) + ' | ' + Math.round(fpsCounter.currentDtsFps) + ' | ' + Math.round(fpsCounter.highestDt, 2);
-looper.ticker(dt => document.getElementById('fps').innerText = formatFps());
-
-// const basicExperiment = new BasicExperiment();
-// looper.ticker(dt => {
-//     basicExperiment.update(dt);
-//     basicExperiment.draw(stage);
-// });
-// const bouncyBall = new BouncyBall(canvasWidth, canvasHeight);
-// looper.ticker(dt => {
-//     bouncyBall.update(dt);
-//     bouncyBall.draw(stage);
-// });
-
-const aBox = new InputStatusBox('a');
-looper.ticker(dt => {
-    aBox.update(dt);
-    aBox.draw(stage);
-});
-
-
-
-looper.ticker(dt => renderer.render(stage));
+renderer.render(stage);
