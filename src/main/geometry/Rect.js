@@ -6,6 +6,10 @@ export class Rect {
         this.h = h;
     }
 
+    contains({x, y}) {
+        return !(x < this.left || x > this.right || y < this.top || y > this.bottom);
+    }
+
     get top() {
         return this.y;
     }
