@@ -1,4 +1,4 @@
-import { getCircleGraphics } from "./graphicsHelper";
+import { getCircleGraphics } from "./engine/graphicsHelper";
 
 export default class BouncyBall {
     constructor(boundaryWidth, boundaryHeight) {
@@ -8,7 +8,7 @@ export default class BouncyBall {
         this.boundaryWidth = boundaryWidth;
         this.boundaryHeight = boundaryHeight;
 
-        this.graphic = getCircleGraphics(0, 0, this.r, 0xaaaaaa, 1);
+        this.graphic = getCircleGraphics(0, 0, this.r, 0xffffff, 0);// 0xaaaaaa, 1);
     }
     update(dt) {
         this.pos[0] += this.vel[0] * (dt/1000);

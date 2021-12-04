@@ -90,7 +90,7 @@ export class Rect {
         this.x = x - this.w;
     }
 
-    set topLeft(x, y) {
+    set topLeft({x, y}) {
         this.x = x;
         this.y = y;
     }

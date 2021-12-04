@@ -10,7 +10,7 @@ const NOOP = () => {};
 // start/stop ability (?) maybe noLoop() like p5
 // showFps() function
 export class Game {
-    constructor({width, height, setup, update, draw, framerate = 60}) {
+    constructor({width, height, setup, update, draw, framerate = 60, backgroundColor = undefined}) {
         // const canvasWidth = 640;
         // const canvasHeight = 360;
         this.width = width;
@@ -19,6 +19,7 @@ export class Game {
         this.update = update || NOOP;
         this.draw = draw || NOOP;
         this.framerate = framerate;
+        this.backgroundColor = backgroundColor;
 
         // should these go in start()?
         this.fpsCounter = new FpsCounter();
@@ -27,13 +28,13 @@ export class Game {
     
     start() {
         this.setup(); // TODO: what args? width, height, framerate? or something -- maybe after stage init? idk
-        this.renderer = initRenderer(document.body, this.width, this.height);
+        this.renderer = initRenderer(document.body, this.width, this.height, this.backgroundColor);
         this.stage = new PIXI.Container();
         this.looper.init(this.framerate);
         this.looper.ticker(dt => console.log('tick:', dt));
         this.looper.ticker(dt => this.fpsCounter.updateFps(dt));
         this.looper.ticker(dt => this.update(dt));
-        this.looper.ticker(dt => this.draw(dt));
+        this.looper.ticker(dt => this.draw(this.stage, dt));
         this.looper.ticker(dt => this.renderer.render(this.stage));
     }
 
