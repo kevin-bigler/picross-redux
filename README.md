@@ -4,6 +4,12 @@ picross things
 
 ## Usage
 
+```
+npm i esm && npm i -D nodemon
+npx nodemon -r esm <script>
+# https://stackoverflow.com/questions/56953426/nodemon-crashes-when-trying-to-use-es6-modules-but-works-well-with-es5
+```
+
 ### npm scripts
 
 * `npm run start` - runs the compiler and a server at the same time in dev mode with HMR (Hot Module Replacement) 🔥.
