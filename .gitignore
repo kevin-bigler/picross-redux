@@ -20,6 +20,7 @@
 # Parcel
 .cache/*
 /lib
+/dist
 
 # IDE - VSCode
 .vscode/*
